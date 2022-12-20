@@ -1,1 +1,67 @@
 /* You can add global styles to this file, and also import other style files */
+/* Application-wide Styles */
+h1 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+h2,
+h3 {
+  color: #444;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+body {
+  margin: 2em;
+}
+body,
+input[type="text"],
+button {
+  color: #333;
+  font-family: Cambria, Georgia, serif;
+}
+button {
+  display: flex;
+  align-items: center;
+  width: 200px;
+  background-color: #eee;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: black;
+  font-size: 1.2rem;
+  padding: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+button:hover {
+  background-color: black;
+  color: white;
+}
+button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: auto;
+}
+li {
+  list-style: none;
+}
+.badge {
+  margin-right: 15px;
+  color: #fff;
+  background-color: #333;
+  width: auto;
+  height: auto;
+  border-radius: 3px;
+  padding: 15px;
+}
+
+.heroesContainer {
+  display: flex;
+}
+
+/* everywhere else */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
