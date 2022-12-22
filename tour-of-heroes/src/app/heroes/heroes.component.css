@@ -17,6 +17,7 @@
 .heroes a {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   color: #333;
   text-decoration: none;
   background-color: #eee;
@@ -35,4 +36,24 @@
 .heroes a:active {
   background-color: #525252;
   color: #fafafa;
+}
+
+.addHeroSection {
+  padding: 2rem 3rem;
+}
+
+.addHeroSection input {
+  height: 30px;
+  border: 1px solid #999;
+  border-radius: 3px;
+}
+
+.delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2c3a41;
+  color: #fff;
+  width: 50px;
+  height: 50px;
 }
