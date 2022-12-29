@@ -1,4 +1,5 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Hero } from '../hero';
 import { HeroDetailsComponent } from '../hero-details/hero-details.component';
@@ -14,8 +15,8 @@ describe('DashboardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DashboardComponent, HeroSearchComponent],
-      imports: [],
-      providers: [HttpClient, HttpHandler, HeroService],
+      imports: [HttpClientTestingModule],
+      providers: [HeroService],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);

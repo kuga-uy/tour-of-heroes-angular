@@ -10,7 +10,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class HeroService {
   private heroesUrl = 'api/heroes';
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    }),
   };
 
   constructor(
@@ -27,9 +30,6 @@ export class HeroService {
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
       // TODO: better job of transforming error for user consumption
       this.log(`${operation} failed: ${error.message}`);
 
@@ -65,7 +65,7 @@ export class HeroService {
   /** POST: add a new hero to the server */
   addHero(hero: Hero): Observable<Hero> {
     return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions).pipe(
-      tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.id}`)),
+      tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.name}`)),
       catchError(this.handleError<Hero>('addHero'))
     );
   }
