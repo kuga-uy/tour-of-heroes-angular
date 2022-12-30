@@ -1,6 +1,8 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { EventEmitter } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, EventEmitter } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 import { HeroService } from '../hero.service';
 
 import { HeroesComponent } from './heroes.component';
@@ -10,10 +12,31 @@ describe('HeroesComponent', () => {
   let fixture: ComponentFixture<HeroesComponent>;
 
   beforeEach(async () => {
+    const heroServiceSpy = jasmine.createSpyObj<HeroService>([
+      'getHeroes',
+      'deleteHero',
+      'addHero',
+    ]);
+
+    heroServiceSpy.getHeroes.and.returnValue(
+      of([
+        { id: 1, name: 'Hero 1' },
+        { id: 2, name: 'Hero 2' },
+        { id: 3, name: 'Hero 3' },
+        { id: 4, name: 'Hero 4' },
+        { id: 5, name: 'Hero 5' },
+        { id: 6, name: 'Hero 6' },
+      ])
+    );
+
+    heroServiceSpy.addHero.and.returnValue(of({ id: 7, name: 'Hero 7' }));
+    heroServiceSpy.deleteHero.and.returnValue(of({ id: 1, name: 'Hero 1' }));
+
     await TestBed.configureTestingModule({
       declarations: [HeroesComponent],
-      imports: [HttpClientTestingModule],
-      providers: [HeroService],
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      providers: [{ provide: HeroService, useValue: heroServiceSpy }],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeroesComponent);
@@ -31,11 +54,22 @@ describe('HeroesComponent', () => {
     expect(subtitle.textContent).toEqual('My Heroes');
   });
 
-  xit('should add 2 heroes', () => {
+  it('getHeroes', () => {
     const heroes = component.heroes;
-    component.add('Hero 1');
-    component.add('Hero 2');
+    expect(heroes.length).toBe(6);
+  });
+
+  it('addHero', () => {
+    const heroes = component.heroes;
+    component.add('Hero 7');
+    expect(heroes.length).toBe(7);
+  });
+
+  it('deleteHero', () => {
+    const heroes = component.heroes;
+    const event = new MouseEvent('click');
+    component.delete({ id: 1, name: 'Hero 1' }, event);
     fixture.detectChanges();
-    expect(heroes.length).toBe(2);
+    expect(heroes.length).toBe(6);
   });
 });
