@@ -24,3 +24,11 @@ nav a:hover {
 nav a:active {
   background-color: black;
 }
+
+.scale {
+  font-size: 1.2rem;
+}
+
+.noScale {
+  font-size: 1rem;
+}
